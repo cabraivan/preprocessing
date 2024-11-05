@@ -1,0 +1,55 @@
+LOGGING
+- with the use of 'logging' library
+- for code execution debugging and process monitoring
+
+- for data logging I've worked with TensorBoard
+- for visualization I've worked with matplotlib
+
+- Logging is suitable for any pipeline that works
+with data or that trains a model, as this process
+requires an error-less execution. Logging warnings
+and information about the ongoing process could
+expose mistakes within the pipeline that require
+debugging and attention.
+
+
+
+TESTS
+- unit tests to check various variables and settings
+- ability to check data array dimensions, types etc.
+- pipeline would raise warnings in case of a failed test
+- testing raises code reliability
+- ability to test edge cases
+
+- Tests can prevent exceptions and errors from occuring
+during execution. A good pipeline would require all tests
+to be passed before a script is executed. Tests are usefull
+for programmers who are modifying the code, rather than
+the original authors. Tests would be a viable addition in
+case somebody else was using my code. The code would also
+need to be structured into separate functions rather than
+a singular script.
+
+
+
+EXCEPTIONS
+- prevents crashing
+- exceptions can be logged
+- customizable exceptions that are specific to the project/product 
+
+- In my experience, exception catching is the most effective
+method for preventing crashing during crucial execution. for
+this particular assignment, exception catching would work well
+in addition to logging as it could warn the user about empty
+arrays fter preprocessing, errors during data extraction from
+large data dumps.
+
+
+API 
+- increases flexibility and ease of use
+- manipulation of an existing database
+- executable code through endpoints
+
+- Useful if the customer provides data on a regular/periodical basis,
+in which case individual or gathered data logs could be processed 
+and inserted into a database shortly after being provided.

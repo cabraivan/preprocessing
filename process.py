@@ -14,13 +14,27 @@ data = raw_data[['LONGITUDE', 'LAT', 'MEDIAN_AGE', 'ROOMS',
              'BEDROOMS', 'POP', 'HOUSEHOLDS', 'MEDIAN_INCOME', 
              'OCEAN_PROXIMITY']]
 
-#print(data.head(3))
+data = data.rename(columns={
+    'LONGITUDE': 'longitude',
+    'LAT': 'latitude',
+    'MEDIAN_AGE': 'housing_median_age',
+    'ROOMS': 'total_rooms',
+    'BEDROOMS': 'total_bedrooms',
+    'POP': 'population',
+    'HOUSEHOLDS': 'households',
+    'MEDIAN_INCOME': 'median_income',
+    'OCEAN_PROXIMITY': 'ocean_proximity'
+})
 
-number_attributes = ['LONGITUDE', 'LAT', 'MEDIAN_AGE', 'ROOMS', 
-             'BEDROOMS', 'POP', 'HOUSEHOLDS', 'MEDIAN_INCOME']
-non_number_attributes = ['OCEAN_PROXIMITY']
+print("First 3 rows of data after column selection: ")
+print(data.head(3))
+
+number_attributes = ['longitude', 'latitude', 'housing_median_age', 'total_rooms', 
+                     'total_bedrooms', 'population', 'households', 'median_income']
+non_number_attributes = ['ocean_proximity']
 
 all_distances = [['<1H OCEAN', 'INLAND', 'ISLAND', 'NEAR BAY', 'NEAR OCEAN']]
+
 
 #Initialize imputers/encoders/scalers for data preprocessing
 knn = KNNImputer(n_neighbors=5)
@@ -46,15 +60,19 @@ ohe_columns = ohe.get_feature_names_out(non_number_attributes).tolist()
 #print(type(scaled_data), type(onehot_data))
 
 preprocessed = np.concatenate((scaled_data, onehot_data), 1)
-#print(preprocessed[:3])
+print("First 3 rows of data after preprocessing: ")
+print(preprocessed[:3])
+preprocessed_df = pd.DataFrame(preprocessed, columns=number_attributes + ohe_columns)
 
 #Predict Output/Results
 #test_results = model.predict(preprocessed[:10])
 #print(test_results)
-results = model.predict(preprocessed)
+results = model.predict(preprocessed_df)
 
-#DataFrames are not necessary
-preprocessed_df = pd.DataFrame(preprocessed, columns=number_attributes + ohe_columns)
+print("Some model results for the first 3 rows of provided data: ")
+print(results[:3])
+
+#DataFrames are not necessary for database creation
 predictions_df = pd.DataFrame(results, columns=['prediction'])
 
 #Create a database
